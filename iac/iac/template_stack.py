@@ -7,7 +7,7 @@ from constructs import Construct
 from aws_cdk.aws_apigateway import RestApi, Cors
 
 from .lambda_stack import LambdaStack
-from .template_dynamo_table import TemplateDynamoTable
+from .challenge_template_dynamo_table import TemplateDynamoTable
 
 
 class TemplateStack(Stack):
@@ -15,9 +15,9 @@ class TemplateStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        self.rest_api = RestApi(self, "Template_RestApi",
-                                    rest_api_name="Template_RestApi",
-                                    description="This is the Template RestApi",
+        self.rest_api = RestApi(self, "ChallengeTemplate_RestApi",
+                                    rest_api_name="ChallengeTemplate_RestApi",
+                                    description="This is the ChallengeTemplate RestApi",
                                     default_cors_preflight_options=
                                     {
                                         "allow_origins": Cors.ALL_ORIGINS,
@@ -34,7 +34,7 @@ class TemplateStack(Stack):
         }
                                                                )
 
-        self.dynamo_table = TemplateDynamoTable(self, "TemplateDynamoTable")
+        self.dynamo_table = TemplateDynamoTable(self, "ChallengeTemplateDynamoTable")
 
         ENVIRONMENT_VARIABLES = {
             "STAGE": "DEV",
@@ -49,7 +49,6 @@ class TemplateStack(Stack):
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
                                         environment_variables=ENVIRONMENT_VARIABLES)
 
-        for function in self.lambda_stack.functions_that_need_dynamo_permissions:
-            self.dynamo_table.table.grant_read_write_data(function)
+
 
         

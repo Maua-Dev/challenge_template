@@ -4,5 +4,6 @@ from src.shared.infra.repositories.challenge_repository_mock import ChallengeRep
 
 
 class Test_Challenge:
-    pass
+    def test_challenge(self):
+        assert True == True
 

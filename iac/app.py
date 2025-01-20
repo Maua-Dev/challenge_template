@@ -40,7 +40,12 @@ tags = {
     'owner': 'DevCommunity'
 }
 
-TemplateStack(app, stack_name=stack_name, env=cdk.Environment(account=aws_account_id, region=aws_region), tags=tags)
+TemplateStack(
+    scope=app, 
+    construct_id="ChallengeTemplateStack",
+    env=cdk.Environment(account=aws_account_id, region=aws_region), 
+    tags=tags
+)
 
 
 app.synth()

@@ -33,7 +33,7 @@ class LambdaStack(Construct):
         super().__init__(scope, "Template_Lambdas")
 
         self.lambda_layer = lambda_.LayerVersion(self, "Template_Layer",
-                                                 code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
+                                                 code=lambda_.Code.from_asset("./lambda_layer_challenges_template"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
 
